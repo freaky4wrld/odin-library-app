@@ -20,22 +20,41 @@ function Book(title, author, pages, status, index){
 
 function addBookToLibrary(){
     dialogBox.open =  true;
-    document.querySelector('form').addEventListener('submit', (e)=>{
-        e.preventDefault();
-        let readStatus = readingStatus.checked ? 'read': 'not-read';
-        let bookIndex = myLibrary.length == 0 ? 0 : myLibrary.length;
-        let newBook = new Book(title.value,author.value, parseInt(pages.value),readStatus,bookIndex);
-        myLibrary.push(newBook);  
-        console.log(myLibrary)  ;
-        dialogBox.open = false;
-        createCard(newBook);
-        // clearFields();
-    })
 }
 
-addBookBtn.addEventListener('click',addBookToLibrary);
+document.querySelector('form').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    let readStatus = readingStatus.checked ? 'read': 'not-read';
+    let bookIndex = myLibrary.length == 0 ? 0 : myLibrary.length;
+    let newBook = new Book(title.value,author.value, parseInt(pages.value),readStatus,bookIndex);
+    myLibrary.push(newBook);  
+    console.log(myLibrary)  ;
+    dialogBox.open = false;
+    createCard(newBook);
+    clearFields();
+    
+})
 
-console.log(myLibrary)
+addBookBtn.addEventListener('click',addBookToLibrary);
+myLibrary.forEach((book)=>createCard(book));
+bookList.addEventListener('click',(e)=>{
+    if(e.target.classList.contains('remove')){
+        e.target.parentElement.remove();
+        let id = e.target.parentElement.children[0].innerText
+        myLibrary.forEach((book, index)=>{
+            if(id==book.title){
+                myLibrary.length === 1 ? myLibrary.pop() : myLibrary.splice(index,1);
+            }
+        })
+    }
+    else if(e.target.classList.contains('read') || e.target.classList.contains('not-read')){
+        let inner = e.target.classList.contains('read') ? 'Not Read' : 'Read';
+        e.target.innerText = inner;
+        e.target.classList.toggle('read');
+        e.target.classList.toggle('not-read');
+    }
+})
+
 
 function clearFields(){
     title.value = '';
@@ -58,7 +77,7 @@ function createCard(book){
     remove.innerText = 'Remove';
     const staus = document.createElement('button');
     staus.classList = `${book.status}`;
-    let inner = book.status === 'read' ? 'Ready' : "Not Ready";
+    let inner = book.status === 'read' ? 'Read' : "Not Read";
     staus.innerText = `${inner}`;
     card.appendChild(title);
     card.appendChild(author);
@@ -68,6 +87,3 @@ function createCard(book){
     bookList.appendChild(card);
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
-    myLibrary.forEach((book)=>createCard(book));
-})
