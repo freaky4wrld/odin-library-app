@@ -13,15 +13,8 @@
     <main>
         <button id="add-book">+ Add Book</button>
         <div id="books-show">
-            <div class="cards">
-                <div>Book</div>
-                <div>Author</div>
-                <div>Pages</div>
-                <button class="read">Read</button>
-                <button class="remove">Remove</button>
-            </div>
         </div>
-        <dialog id="#form-dialog">
+        <dialog id="form-dialog">
             <form action="#">
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title" placeholder="Enter book title">
@@ -31,8 +24,10 @@
                 <input type="number" name="pages" id="pages" placeholder="Total Pages">
                 <label for="staus">Have you  read it?</label>
                 <input type="checkbox" name="status" id="status">
+                <button type="submit">Submit</button>
             </form>
         </dialog>
     </main>
+    <script src="script.js"></script>
 </body>
 </html>
