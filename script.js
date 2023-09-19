@@ -1,6 +1,6 @@
 const myLibrary = [
-    {title:'The Hobbit', author:'Tolkien', pages: 295, status: 'not-read', index: 0},
-    {title:'The Hob', author:'kien', pages: 29, status: 'read', index: 1}
+    {title:'The Thirty-Nine Steps', author:'John Buchan', pages: 138, status: 'read', index: 1},
+    {title:'The Hobbit', author:'J.R.R Tolkein', pages: 295, status: 'not-read', index: 0}
 ];
 const addBookBtn = document.getElementById('add-book');
 const dialogBox = document.getElementById('form-dialog');
@@ -67,7 +67,7 @@ function createCard(book){
     const card = document.createElement('div');
     card.className = 'cards';
     const title = document.createElement('div');
-    title.innerText = book.title;
+    title.innerText = `"${book.title}"`;
     const author = document.createElement('div');
     author.innerText = book.author;
     const pages = document.createElement('div');
