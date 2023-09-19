@@ -9,6 +9,7 @@ const title = document.getElementById('title');
 const author = document.getElementById('author');
 const pages = document.getElementById('pages');
 const readingStatus = document.getElementById('status');
+const overlays = document.getElementById('overlay');
 
 function Book(title, author, pages, status, index){
     this.title = title;
@@ -20,6 +21,8 @@ function Book(title, author, pages, status, index){
 
 function addBookToLibrary(){
     dialogBox.open =  true;
+    dialogBox.className = "animate__animated animate__slideInDown";
+    overlays.style.visibility = 'visible';
 }
 
 document.querySelector('form').addEventListener('submit', (e)=>{
@@ -30,12 +33,18 @@ document.querySelector('form').addEventListener('submit', (e)=>{
     myLibrary.push(newBook);  
     console.log(myLibrary)  ;
     dialogBox.open = false;
+    overlays.style.visibility = 'hidden';
     createCard(newBook);
     clearFields();
     
 })
 
 addBookBtn.addEventListener('click',addBookToLibrary);
+overlays.addEventListener('click', ()=>{
+    dialogBox.className = "animate__animated animate__zoomOut";
+    overlays.style.visibility = 'hidden';
+    setTimeout(()=>dialogBox.open =  false, 1000);
+})
 myLibrary.forEach((book)=>createCard(book));
 bookList.addEventListener('click',(e)=>{
     if(e.target.classList.contains('remove')){
